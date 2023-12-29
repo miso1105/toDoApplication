@@ -74,7 +74,7 @@ class CardServiceImpl(
         // TODO: DB에서 카드 ID에 해당하는 Card(Entitiy)를 삭제
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
 
-        return cardRepository.deleteById(cardId)
+        return cardRepository.delete(card)
 
     }
 }
