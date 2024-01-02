@@ -1,5 +1,6 @@
 package com.teamsparta.todo.domain.todo.model
 
+<<<<<<< HEAD
 import com.teamsparta.todo.domain.comment.model.Comment
 import com.teamsparta.todo.domain.comment.model.toResponse
 import com.teamsparta.todo.domain.todo.dto.TodoResponse
