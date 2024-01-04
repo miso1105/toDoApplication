@@ -1,6 +1,7 @@
 package com.teamsparta.todo.domain.todo.model
 
 import com.teamsparta.todo.domain.comment.model.Comment
+import com.teamsparta.todo.domain.comment.model.toResponse
 import com.teamsparta.todo.domain.todo.dto.TodoResponse
 import jakarta.persistence.*
 import java.time.LocalDateTime
@@ -19,6 +20,9 @@ class Todo(
 
     @Column(name = "plans")
     var plans: String? = null,
+
+    @Column(name = "date_time")
+    var createdDate: LocalDateTime = LocalDateTime.now(),
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -54,7 +58,8 @@ fun Todo.toResponse(): TodoResponse {
         userName = userName,
         title = title,
         plans = plans,
-        createdDate = LocalDateTime.now(),
+        createdDate = createdDate,
         doneStatus = doneStatus.name,
+        commentList = comments.map { it.toResponse() },
     )
 }
