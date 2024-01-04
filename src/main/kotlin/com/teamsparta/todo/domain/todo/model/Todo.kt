@@ -50,6 +50,10 @@ class Todo(
         doneStatus = DoneStatus.TRUE
     }
 
+    fun updateNotStatus() {
+        doneStatus = DoneStatus.FALSE
+    }
+
 }
 
 fun Todo.toResponse(): TodoResponse {
