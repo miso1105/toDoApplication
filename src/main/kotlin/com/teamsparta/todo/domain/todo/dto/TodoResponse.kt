@@ -1,5 +1,6 @@
 package com.teamsparta.todo.domain.todo.dto
 
+import com.teamsparta.todo.domain.todo.model.DoneStatus
 import java.time.LocalDateTime
 
 data class TodoResponse(
@@ -8,4 +9,5 @@ data class TodoResponse(
     val title: String,
     val plans: String?,
     val createdDate: LocalDateTime,
+    var doneStatus: String,
 )
