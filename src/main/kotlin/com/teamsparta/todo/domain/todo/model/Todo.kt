@@ -50,6 +50,7 @@ class Todo(
         doneStatus = DoneStatus.TRUE
     }
 
+    // 할일 완료를 취소하면 호출되는 메소드
     fun updateNotStatus() {
         doneStatus = DoneStatus.FALSE
     }
