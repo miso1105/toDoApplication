@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/todos")
 @RestController
 class TodoController(
-    private val todoService: TodoService            // 인터페이스 상속만으로 알아서 해당되는 빈을 찾아줌
+    private val todoService: TodoService            // 인터페이스 상속만으로 알아서 해당되는 빈을 찾아줌 , Service와 연결돼 서비스 방향을 바라보고 있음 = 스프링이 서비스 호출
 ) {
 
     @GetMapping
@@ -49,6 +49,7 @@ class TodoController(
 
     @DeleteMapping("/{todoId}")
     fun deleteTodo(@PathVariable todoId: Long): ResponseEntity<Unit> {
+        todoService.deleteTodo(todoId)
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()
