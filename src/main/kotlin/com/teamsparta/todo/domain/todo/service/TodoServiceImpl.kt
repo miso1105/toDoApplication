@@ -15,6 +15,7 @@ import com.teamsparta.todo.domain.todo.repository.TodoRepository
 import com.teamsparta.todo.domain.exception.ModelNotFoundException
 import com.teamsparta.todo.domain.todo.model.DoneStatus
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -24,9 +25,17 @@ class TodoServiceImpl(
     private val commentRepository: CommentRepository
 ) : TodoService {
 
-    override fun getAllTodoList(): List<TodoResponse> {
-        // TODO: DB에서 모든 할일 목록을 TodoResponse로 감싼 리스트로 변환 후 반환
-        return todoRepository.findAll().map { it.toResponse() }
+    override fun getAscOrDescTodoList(order: String): List<TodoResponse> {
+        TODO()
+    }
+
+    override fun getAscTodoList(): List<TodoResponse> {
+        return todoRepository.findAll().map { it.toResponse() }.sortedBy { it.createdDate }
+
+    }
+
+    override fun getDescTodoList(): List<TodoResponse> {
+        return todoRepository.findAll().map { it.toResponse() }.sortedByDescending { it.createdDate }
     }
 
 
