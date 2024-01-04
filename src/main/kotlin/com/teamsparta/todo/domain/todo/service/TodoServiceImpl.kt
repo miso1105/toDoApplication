@@ -74,6 +74,9 @@ class TodoServiceImpl(
         if (request.askTOdoStatusIsDoneOrNot.lowercase() == "done")
             todo.updateDoneStatus()
 
+        if (request.askTOdoStatusIsDoneOrNot.lowercase() == "not")
+            todo.updateNotStatus()
+
         return todoRepository.save(todo).toResponse()
     }
 
