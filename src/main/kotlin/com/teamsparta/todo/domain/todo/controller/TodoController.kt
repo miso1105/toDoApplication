@@ -15,11 +15,26 @@ class TodoController(
     private val todoService: TodoService            // 인터페이스 상속만으로 알아서 해당되는 빈을 찾아줌 , Service와 연결돼 서비스 방향을 바라보고 있음 = 스프링이 서비스 호출
 ) {
 
-    @GetMapping
-    fun getTodoList(): ResponseEntity<List<TodoResponse>> {
+
+    // 할일 목록 조회 - 할일 생성 날짜 기준 오름차순 리스트로 받을건지 내림차순 리스트로 받을건지 요청
+    @GetMapping("/{order}")
+    fun getAscOrDescTodoList(@PathVariable order: String) {
+    }
+
+    // order == asc -> asc url 접속 후 할일 목록을 할일 생성 날짜 기준 오름차순 리스트로 반환
+    @GetMapping("/asc")
+    fun getAscTodoList(): ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodoList())     // controller와 service 연결
+            .body(todoService.getAscTodoList())
+    }
+
+    // order == desc -> desc url 접속 후 할일 목록을 할일 생성 날짜 기준 내림차순 리스트로 반환
+    @GetMapping("/desc")
+    fun getDescTodoList(): ResponseEntity<List<TodoResponse>> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(todoService.getDescTodoList())           // controller와 service 연결
     }
 
     @GetMapping("/{todoId}")
