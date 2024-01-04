@@ -74,6 +74,7 @@ class TodoServiceImpl(
         if (request.askTOdoStatusIsDoneOrNot.lowercase() == "done")
             todo.updateDoneStatus()
 
+        // 수정할 때 askTOdoStatusIsDoneOrNot 요청칸에 not을 쓰면 할일 상태가 TRUE 에서 FALSE로 바뀜
         if (request.askTOdoStatusIsDoneOrNot.lowercase() == "not")
             todo.updateNotStatus()
 
