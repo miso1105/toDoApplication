@@ -1,5 +1,4 @@
 package com.teamsparta.todo.domain.todo.service
-
 import com.teamsparta.todo.domain.comment.dto.AddCommentRequest
 import com.teamsparta.todo.domain.comment.dto.CommentResponse
 import com.teamsparta.todo.domain.comment.dto.RemoveCommentRequest
@@ -16,7 +15,6 @@ import com.teamsparta.todo.domain.todo.repository.TodoRepository
 import com.teamsparta.todo.domain.exception.ModelNotFoundException
 import com.teamsparta.todo.domain.todo.model.DoneStatus
 import org.springframework.data.repository.findByIdOrNull
-
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -27,7 +25,7 @@ class TodoServiceImpl(
 ) : TodoService {
 
     override fun getAllTodoList(): List<TodoResponse> {
-        // TODO: DB에서 모든 할일 목록을 CardResponse로 감싼 리스트로 변환 후 반환
+        // TODO: DB에서 모든 할일 목록을 TodoResponse로 감싼 리스트로 변환 후 반환
         return todoRepository.findAll().map { it.toResponse() }
     }
 
