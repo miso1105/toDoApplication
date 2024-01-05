@@ -73,7 +73,8 @@
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/7280d436-4eb8-421a-aed2-207e86a0dc98)
 
 - 할일 완료 기능
-FALSE: 기본값으로 할일 미완료 상태, TRUE: 할일 완료 상태
+
+  FALSE: 기본값으로 할일 미완료 상태, TRUE: 할일 완료 상태
 
   - done을 입력하면 'doneStatus'가 FALSE -> TRUE
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/eeb3fcef-83ed-47ff-8669-4eda22e20b49)
