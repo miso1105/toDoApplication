@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity
 
 interface TodoService {
 
-    fun getAscOrDescTodoList(order: String): List<TodoResponse>
+    fun getAscOrDescTodoList(order: String)
 
     fun getAscTodoList(): List<TodoResponse>
 
