@@ -47,23 +47,6 @@
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/280d0c67-f593-40e3-9c62-355ec64c8cf5)
 
 
-- 할일 리스트 생성 날짜 기준 오름차순 정렬
-
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/853e7d20-8c21-4a66-88fc-a2d43fa942b8)
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/03fd565e-ee97-4be2-bb75-fd86d904b976)
-
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/fce45a92-45de-403c-91c2-210c15e76c45)
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/32c81972-b47b-4721-a7bd-3ec1b0d06d6c)
-
-
-- 할일 리스트 생성 날짜 기준 내림차순 정렬
-
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/9e32d2d8-723e-4605-a537-ec3573e13562)
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/bc03ca72-c004-4753-8ffb-1202278b8201)
-
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/a7538de5-0747-439d-85fa-77fd51e478df)
-![image](https://github.com/miso1105/toDoApplication/assets/137920347/66195e15-fab9-425c-966d-f53dc9e4f09a)
-
 - 할일이 삭제되면 관련 댓글목록도 같이 삭제
 
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/e931984b-e556-4325-9ff4-b1083a6c5bc3)
@@ -92,6 +75,35 @@
 
   - 할일 포스트 내 댓글 데이터
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/3cca38c3-451a-48ff-be90-334d511d672e)
+
+
+- 할일 리스트 생성 날짜 기준 오름차순 정렬(수정)
+  
+  - 요청 값 sortedByDate에 asc or ASC 를 입력하면 오름차순 정렬 
+    Request URL : http://localhost:8080/todos?sortedByDate=asc
+    
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/aa28f19d-c1c4-4563-9ed3-5ba9e1088d6f)
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/b176a282-f834-46ab-b901-823b0ed52ae4)
+
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/0fd9de25-c159-46b4-bd5b-b6d95f0da815)
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/339c13e6-15c1-4e45-a5f3-494d550aec05)
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/25bccb5e-cfde-4861-bff0-eabb90c3243a)
+
+
+
+
+- 할일 리스트 생성 날짜 기준 내림차순 정렬(수정)
+  
+  - 요청 값 sortedByDate에 desc or DESC 를 입력하면 내림차순 정렬 
+    Request URL : http://localhost:8080/todos?sortedByDate=DESC
+    
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/5f7ef8c3-f703-4634-ab5b-77977ae63162)
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/d3573496-146b-43d9-af63-68e48f957895)
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/68358f3a-65b8-456f-9b41-bbdf0221aa87)
+
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/7f435dd8-6db4-4ec5-9b0a-e9d27307cb6b)
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/3972764f-f8eb-449a-84d9-07254f016ecc)
+    ![image](https://github.com/miso1105/toDoApplication/assets/137920347/d916c59f-d787-4a3d-a38e-b5fc8aff7fd0)
 
 
 
