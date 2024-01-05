@@ -25,7 +25,7 @@ class TodoServiceImpl(
     private val commentRepository: CommentRepository
 ) : TodoService {
 
-    override fun getAscOrDescTodoList(order: String): List<TodoResponse> {
+    override fun getAscOrDescTodoList(order: String) {
         TODO()
     }
 
