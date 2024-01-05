@@ -46,7 +46,6 @@
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/8f442c15-56a8-4b98-b702-efd4713e3279)
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/280d0c67-f593-40e3-9c62-355ec64c8cf5)
 
-
 - 할일이 삭제되면 관련 댓글목록도 같이 삭제
 
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/e931984b-e556-4325-9ff4-b1083a6c5bc3)
@@ -55,25 +54,32 @@
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/9e3b9b38-3ff8-4abd-a803-dd7e241a8903)
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/7280d436-4eb8-421a-aed2-207e86a0dc98)
 
-- 할일 완료 기능
 
+- 할일 완료 기능
+  
   FALSE: 기본값으로 할일 미완료 상태, TRUE: 할일 완료 상태
 
-  - done을 입력하면 'doneStatus'가 FALSE -> TRUE
+  - Request Body의 askTOdoStatusIsDoneOrNot 요청 값에 done or DONE 을 입력하면 'doneStatus'가 FALSE -> TRUE
+    
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/eeb3fcef-83ed-47ff-8669-4eda22e20b49)
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/17f4d94c-6865-451c-8a26-22920657224a)
   
   
-  - not을 입력하면 'doneStatus'가 TRUE -> FALSE
+  - Request Body의 askTOdoStatusIsDoneOrNot 요청 값에 not or Not 을 입력하면 'doneStatus'가 TRUE -> FALSE
+    
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/f0906445-0999-47f3-9a7e-09107fc6ba14)
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/2870ba9e-4034-49ce-b807-a62f899017ac)
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/ef6e1fa9-23d7-4307-92a0-9ebfb1729484)
 
+
 - 이용가능한 테스트용 데이터
+  
   - 할일 포스트 데이터
+    
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/4e90314c-6e11-4822-ab3e-fa2f7bde29e4)
 
   - 할일 포스트 내 댓글 데이터
+    
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/3cca38c3-451a-48ff-be90-334d511d672e)
 
 
@@ -88,7 +94,6 @@
     ![image](https://github.com/miso1105/toDoApplication/assets/137920347/0fd9de25-c159-46b4-bd5b-b6d95f0da815)
     ![image](https://github.com/miso1105/toDoApplication/assets/137920347/339c13e6-15c1-4e45-a5f3-494d550aec05)
     ![image](https://github.com/miso1105/toDoApplication/assets/137920347/25bccb5e-cfde-4861-bff0-eabb90c3243a)
-
 
 
 
