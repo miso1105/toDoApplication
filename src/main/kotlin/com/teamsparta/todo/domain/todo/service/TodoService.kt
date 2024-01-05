@@ -6,15 +6,10 @@ import com.teamsparta.todo.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.todo.domain.todo.dto.TodoResponse
 import com.teamsparta.todo.domain.todo.dto.CreateTodoRequest
 import com.teamsparta.todo.domain.todo.dto.UpdateTodoRequest
-import org.springframework.http.ResponseEntity
 
 interface TodoService {
 
-    fun getAscOrDescTodoList(order: String)
-
-    fun getAscTodoList(): List<TodoResponse>
-
-    fun getDescTodoList(): List<TodoResponse>
+    fun getTodoList(sortedByDate: String): List<TodoResponse>
 
     fun getTodoById(todoId: Long): TodoResponse
 

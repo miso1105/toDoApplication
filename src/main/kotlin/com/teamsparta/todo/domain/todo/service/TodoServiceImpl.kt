@@ -15,7 +15,6 @@ import com.teamsparta.todo.domain.todo.repository.TodoRepository
 import com.teamsparta.todo.domain.exception.ModelNotFoundException
 import com.teamsparta.todo.domain.todo.model.DoneStatus
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -25,19 +24,17 @@ class TodoServiceImpl(
     private val commentRepository: CommentRepository
 ) : TodoService {
 
-    override fun getAscOrDescTodoList(order: String) {
-        TODO()
+
+    override fun getTodoList(sortedByDate: String): List<TodoResponse> {
+        return when (sortedByDate.lowercase()) {
+            "asc" -> {
+                todoRepository.findAll().map { it.toResponse() }.sortedBy { it.createdDate }
+            }
+            "desc" -> {
+                todoRepository.findAll().map { it.toResponse() }.sortedByDescending { it.createdDate }
+            } else -> throw IllegalArgumentException("Please select a sort option.")
+        }
     }
-
-    override fun getAscTodoList(): List<TodoResponse> {
-        return todoRepository.findAll().map { it.toResponse() }.sortedBy { it.createdDate }
-
-    }
-
-    override fun getDescTodoList(): List<TodoResponse> {
-        return todoRepository.findAll().map { it.toResponse() }.sortedByDescending { it.createdDate }
-    }
-
 
     override fun getTodoById(todoId: Long): TodoResponse {
         // TODO: 만약 해당하는 할일 ID에 해당하는 할일이 없다면 throw ModelNotFoundExeption
