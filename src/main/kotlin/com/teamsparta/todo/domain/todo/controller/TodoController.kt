@@ -17,12 +17,13 @@ class TodoController(
 
 
     // 할일 목록 조회 - 할일 생성 날짜 기준 오름차순 리스트로 받을건지 내림차순 리스트로 받을건지 요청
-    @GetMapping("/{order}")
+    @GetMapping("/sort/{order}")
     fun getAscOrDescTodoList(@PathVariable order: String) {
+
     }
 
     // order == asc -> asc url 접속 후 할일 목록을 할일 생성 날짜 기준 오름차순 리스트로 반환
-    @GetMapping("/asc")
+    @GetMapping("/sort/asc")
     fun getAscTodoList(): ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -30,7 +31,7 @@ class TodoController(
     }
 
     // order == desc -> desc url 접속 후 할일 목록을 할일 생성 날짜 기준 내림차순 리스트로 반환
-    @GetMapping("/desc")
+    @GetMapping("/sort/desc")
     fun getDescTodoList(): ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
