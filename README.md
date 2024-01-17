@@ -1,5 +1,6 @@
 # To Do Application
 
+
 ### Step 2
 
 댓글을 작성, 수정, 삭제하고 할일카드 목록을 조회하면 연관된 댓글 목록이 같이 조회되는 api
@@ -78,9 +79,10 @@
     
   ![image](https://github.com/miso1105/toDoApplication/assets/137920347/4e90314c-6e11-4822-ab3e-fa2f7bde29e4)
 
-  - 할일 포스트 내 댓글 데이터
-    
+    - 할일 포스트 내 댓글 데이터
+
 ![image](https://github.com/miso1105/toDoApplication/assets/137920347/3cca38c3-451a-48ff-be90-334d511d672e)
+
 
 
 - 할일 리스트 생성 날짜 기준 오름차순 정렬(수정)
