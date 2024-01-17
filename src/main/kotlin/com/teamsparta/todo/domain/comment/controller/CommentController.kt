@@ -7,6 +7,7 @@ import com.teamsparta.todo.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.todo.domain.todo.service.TodoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,6 +22,8 @@ class CommentController(
     private val todoService: TodoService
 ) {
 
+
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @PostMapping
     fun addComment(
         @PathVariable todoId: Long,
@@ -32,9 +35,10 @@ class CommentController(
     }
 
 
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @PutMapping("/{commentId}")
     fun updateComment(
-        @PathVariable todoId: Long, commentId: Long,
+        @PathVariable todoId: Long, @PathVariable commentId: Long,
         @RequestBody updateCommentRequest: UpdateCommentRequest
     ): ResponseEntity<CommentResponse> {
         return ResponseEntity
@@ -43,9 +47,10 @@ class CommentController(
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{commentId}")
     fun removeComment(
-        @PathVariable todoId: Long, commentId: Long,
+        @PathVariable todoId: Long, @PathVariable commentId: Long,
         @RequestBody removeCommentRequest: RemoveCommentRequest
     ): ResponseEntity<Unit> {
         return ResponseEntity

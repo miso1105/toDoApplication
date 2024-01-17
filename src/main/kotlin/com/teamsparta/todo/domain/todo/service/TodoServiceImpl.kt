@@ -36,6 +36,7 @@ class TodoServiceImpl(
         }
     }
 
+
     override fun getTodoById(todoId: Long): TodoResponse {
         // TODO: 만약 해당하는 할일 ID에 해당하는 할일이 없다면 throw ModelNotFoundExeption
         // TODO: DB에서 카드 ID 기반으로 할일을 가져와서  CardResponse 감싸 변환 후 반환
