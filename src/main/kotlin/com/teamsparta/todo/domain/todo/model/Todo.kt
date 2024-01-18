@@ -25,7 +25,7 @@ class Todo(
     var createdDate: LocalDateTime = LocalDateTime.now(),
 
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name = "done_status")
     var doneStatus: DoneStatus,
 
     @OneToMany(mappedBy = "todo", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
