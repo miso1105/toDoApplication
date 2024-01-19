@@ -7,6 +7,7 @@ import com.teamsparta.todo.domain.todo.dto.UpdateTodoRequest
 import com.teamsparta.todo.domain.todo.service.TodoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/todos")
@@ -17,6 +18,7 @@ class TodoController(
 
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     fun getTodoList(
         @RequestParam("sortedByDate") sortedByDate: String
     ): ResponseEntity<List<TodoResponse>> {
@@ -25,7 +27,7 @@ class TodoController(
             .body(todoService.getTodoList(sortedByDate))
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{todoId}")
     fun getTodo(@PathVariable todoId: Long): ResponseEntity<TodoResponse> {
         return ResponseEntity
@@ -33,6 +35,7 @@ class TodoController(
             .body(todoService.getTodoById(todoId))
     }
 
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @PostMapping
     fun createTodo(@RequestBody createTodoRequest: CreateTodoRequest): ResponseEntity<TodoResponse> {
         // dto로 요청하는 바디가 있으니까 @RequestBody 어노테이션 사용. CreateCardRequest 감싸서 요청하고 status code 까지 반환되는 CardResponse로 감싼 엔티티를 받아야돼
@@ -41,6 +44,7 @@ class TodoController(
             .body(todoService.createTodo(createTodoRequest))
     }
 
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable todoId: Long,
@@ -51,6 +55,7 @@ class TodoController(
             .body(todoService.updateTodo(todoId, updateTodoRequest))
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{todoId}")
     fun deleteTodo(@PathVariable todoId: Long): ResponseEntity<Unit> {
         todoService.deleteTodo(todoId)
