@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 data class TodoResponse(
     val id: Long,
-    val userName: String,
+    val nickName: String,
     val title: String,
     val plans: String?,
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
