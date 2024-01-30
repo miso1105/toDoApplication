@@ -5,7 +5,7 @@ import com.teamsparta.todo.domain.user.dto.LoginRequest
 import com.teamsparta.todo.domain.user.dto.LoginResponse
 import com.teamsparta.todo.domain.user.dto.SignUpRequest
 import com.teamsparta.todo.domain.user.dto.SignUpResponse
-import com.teamsparta.todo.domain.user.exception.InvalidCredentialException
+import com.teamsparta.todo.domain.exception.InvalidCredentialException
 import com.teamsparta.todo.domain.user.model.AppUser
 import com.teamsparta.todo.domain.user.model.Role
 import com.teamsparta.todo.domain.user.model.toResponse
@@ -32,6 +32,7 @@ class AppUserServiceImpl(
         return appUserRepository.save(
             AppUser (
                 email = request.email,
+                nickName = request.nickName,
                 password = passwordEncoder.encode(request.password),
                 role = when (request.role) {
                     "MEMBER" -> Role.MEMBER
@@ -55,6 +56,7 @@ class AppUserServiceImpl(
             accessToken = jwtPlugin.generateAccessToken(
                 subject = appUser.id.toString(),
                 email = appUser.email,
+                nickName = appUser.nickName,
                 role = appUser.role.name
             )
         )

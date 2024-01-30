@@ -31,15 +31,16 @@ class JwtPlugin(
     fun generateAccessToken(
         subject: String,
         email: String,
+        nickName: String,
         role: String
     ): String {
-        return generateToken(subject, email, role, Duration.ofHours(accessTokenExpirationHour))
+        return generateToken(subject, email, nickName, role, Duration.ofHours(accessTokenExpirationHour))
 
     }
 
-    private fun generateToken(subject: String, email: String, role: String, expirationPeriod: Duration): String {
+    private fun generateToken(subject: String, email: String, nickName: String, role: String, expirationPeriod: Duration): String {
         val claims: Claims = Jwts.claims()
-            .add(mapOf("role" to role, "email" to email))
+            .add(mapOf("role" to role, "email" to email, "nickName" to nickName))
             .build()
 
         val now = Instant.now()
