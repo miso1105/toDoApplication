@@ -1,19 +1,17 @@
 package com.teamsparta.todo.domain.todo.controller
 
 
-import com.teamsparta.todo.domain.exception.dto.ErrorResponse
-import com.teamsparta.todo.domain.todo.dto.TodoResponse
 import com.teamsparta.todo.domain.todo.dto.CreateTodoRequest
+import com.teamsparta.todo.domain.todo.dto.TodoResponse
 import com.teamsparta.todo.domain.todo.dto.UpdateTodoRequest
 import com.teamsparta.todo.domain.todo.service.TodoService
-import com.teamsparta.todo.infra.security.UserPrincipal
+import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/todos")
@@ -44,7 +42,7 @@ class TodoController(
 
     @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @PostMapping
-    fun createTodo(@RequestBody createTodoRequest: CreateTodoRequest): ResponseEntity<TodoResponse> {
+    fun createTodo(@Valid @RequestBody createTodoRequest: CreateTodoRequest): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(todoService.createTodo(createTodoRequest))
@@ -54,7 +52,7 @@ class TodoController(
     @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable todoId: Long,
-        @RequestBody updateTodoRequest: UpdateTodoRequest
+        @Valid @RequestBody updateTodoRequest: UpdateTodoRequest
     ): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
