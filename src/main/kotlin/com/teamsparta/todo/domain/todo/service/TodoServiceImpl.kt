@@ -14,6 +14,8 @@ import com.teamsparta.todo.domain.todo.model.toResponse
 import com.teamsparta.todo.domain.todo.repository.TodoRepository
 import com.teamsparta.todo.domain.exception.ModelNotFoundException
 import com.teamsparta.todo.domain.todo.model.DoneStatus
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,20 +23,32 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class TodoServiceImpl(
     private val todoRepository: TodoRepository,          // 컨트롤러에서 결합된 서비스에 스프링이 왔는데 서비스와 레포지토리가 연결돼있음. 스피링이 레포지토리 호출.
-    private val commentRepository: CommentRepository
+    private val commentRepository: CommentRepository,
+    // private val commentRepositoryImpl: CommentRepositoryImpl
 ) : TodoService {
-
-
-    override fun getTodoList(sortedByDate: String): List<TodoResponse> {
-        return when (sortedByDate.lowercase()) {
-            "asc" -> {
-                todoRepository.findAll().map { it.toResponse() }.sortedBy { it.createdDate }
-            }
-            "desc" -> {
-                todoRepository.findAll().map { it.toResponse() }.sortedByDescending { it.createdDate }
-            } else -> throw IllegalArgumentException("Please select a sort option.")
+    override fun getPaginatedTodoList(pageable: Pageable, status: String?): Page<TodoResponse>? {
+                                                                                        // 이렇게 스트링화 된 이넘클래스의 상수값들을 다시 이넘클래스로 비교하는 이유는 QueryDsl 에서 status 를 비교할 때 이때는 String 기반으로 비교하는 게 아니라 원래의 자료타입이었던 Enum 으로 비교해서 Enum 으로 다시 조건문을 바꿔줘야 한다.
+        val doneStatus = when(status) {
+            "TRUE" -> DoneStatus.TRUE
+            "FALSE" -> DoneStatus.FALSE
+            null -> null                                                               // null 값이 올 수도 있다는 가정을 항상 하는 거 같아. 오류 날까봐
+            else -> throw IllegalArgumentException("The Done Status is invalid")       // TRUE, FALSE 외의 값은 예외처리
         }
-    }
+
+        return todoRepository.findByPageableAndStatus(pageable, doneStatus)?.map { it.toResponse() }    // TodoResponse dto 싸서 던져야돼. 컨트롤러에서 페이징한 투두리스폰스 리스트로 반환받는다고 했어
+    }                                                                                               // Page<U> map, 실제 가져온 contents 에 대해서 map 을 한다. U 자리에 Todo 가 들어가니까.
+
+
+//    override fun getTodoList(sortedByDate: String): List<TodoResponse> {
+//        return when (sortedByDate.lowercase()) {
+//            "asc" -> {
+//                todoRepository.findAll().map { it.toResponse() }.sortedBy { it.createdDate }
+//            }
+//            "desc" -> {
+//                todoRepository.findAll().map { it.toResponse() }.sortedByDescending { it.createdDate }
+//            } else -> throw IllegalArgumentException("Please select a sort option.")
+//        }
+//    }
 
     override fun getTodoById(todoId: Long): TodoResponse {
         // TODO: 만약 해당하는 할일 ID에 해당하는 할일이 없다면 throw ModelNotFoundExeption
@@ -44,16 +58,22 @@ class TodoServiceImpl(
     }
 
 
-    @Transactional
+    // Querydsl 사용
+    // commentRepositoryImpl 이 리펙토링을 통해 CommentRepository 를 바라보고 있으니까 return commentRepositoryImpl.searchCommentListBycommentUserName(commentUserName).map { it.toResponse() } 에서 생성자 주입 지우고 리펙토링.
+    override fun searchCommentList(commentUserName: String): List<CommentResponse> {
+        return commentRepository.searchCommentListBycommentUserName(commentUserName).map { it.toResponse() }
+    }
+
+
+
     override fun createTodo(request: CreateTodoRequest): TodoResponse {
         // TODO: request를 Todo라는 엔티티로 변환 후 저장
-        if (request.userName == "" || request.title == "") {
+        if (request.title == "") {
             throw IllegalArgumentException("please enter your name and todo title")
         }
 
         return todoRepository.save(
             Todo(
-                userName = request.userName,
                 title = request.title,
                 plans = request.plans,
                 doneStatus = DoneStatus.FALSE,
@@ -88,7 +108,6 @@ class TodoServiceImpl(
     }
 
 
-    @Transactional
     override fun deleteTodo(todoId: Long) {
         // TODO: 만약 해당하는 할일 ID에 해당하는 할일이 없다면 throw ModelNotFoundExeption
         // TODO: DB에서 할일 ID에 해당하는 Todo(Entitiy)를 삭제
@@ -98,15 +117,12 @@ class TodoServiceImpl(
     }
 
 
-    @Transactional
     override fun addComment(todoId: Long, request: AddCommentRequest): CommentResponse {
         // TODO: 만약 해당하는 할일 ID에 해당하는 할일이 없다면 throw ModelNotFoundExeption
         // TODO: DB에서 할일 ID에 해당하는 Todo(Entitiy) 내 댓글 작성
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
 
         val comment = Comment(
-            commentUserName = request.commentUserName,
-            password = request.password,
             content = request.content,
             todo = todo
         )
@@ -123,9 +139,9 @@ class TodoServiceImpl(
         // TODO: DB에서 할일 ID와 댓글ID에 해당하는 Todo(Entitiy) 내 댓글 수정
         val comment: Comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
 
-        val (_, _, content) = request
+        val (password, content) = request
 
-        if (request.commentUserName != comment.commentUserName || request.password != comment.password) {
+        if (request.password != comment. || request.password != comment.password) {
             throw IllegalStateException("Your name and password are incorrect. Please try again.")
         }
 
@@ -135,20 +151,20 @@ class TodoServiceImpl(
 
 
 
-    @Transactional
-    override fun removeComment(todoId: Long, commentId: Long, request: RemoveCommentRequest) {
-        // TODO: 댓글 작성자의 이름과 비밀번호를 알아야 댓글 삭제 가능, 일치하지 않는다면 throw IllegalStateException
-        // TODO: DB에서 할일 ID와 댓글ID에 해당하는 Todo(Entitiy) 내 댓글 삭제
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
-        val comment: Comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
 
-        val (_, _) = request
-
-        if (request.commentUserName != comment.commentUserName || request.password != comment.password) {
-            throw IllegalStateException("Your name and password are incorrect. Please try again.")
-        }
-
-        todo.removeComment(comment)
-        todoRepository.save(todo)
-    }
-}
+//    override fun removeComment(todoId: Long, commentId: Long, request: RemoveCommentRequest) {
+//        // TODO: 댓글 작성자의 이름과 비밀번호를 알아야 댓글 삭제 가능, 일치하지 않는다면 throw IllegalStateException
+//        // TODO: DB에서 할일 ID와 댓글ID에 해당하는 Todo(Entitiy) 내 댓글 삭제
+//        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
+//        val comment: Comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
+//
+//        val (_, _) = request
+//
+//        if (request.commentUserName != comment.commentUserName || request.password != comment.password) {
+//            throw IllegalStateException("Your name and password are incorrect. Please try again.")
+//        }
+//
+//        todo.removeComment(comment)
+//        todoRepository.save(todo)
+//    }
+//}

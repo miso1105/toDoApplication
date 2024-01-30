@@ -6,10 +6,13 @@ import com.teamsparta.todo.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.todo.domain.todo.dto.TodoResponse
 import com.teamsparta.todo.domain.todo.dto.CreateTodoRequest
 import com.teamsparta.todo.domain.todo.dto.UpdateTodoRequest
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 interface TodoService {
 
-    fun getTodoList(sortedByDate: String): List<TodoResponse>
+//    fun getTodoList(sortedByDate: String): List<TodoResponse>
+    fun getPaginatedTodoList(pageable: Pageable, status: String?): Page<TodoResponse>?
 
     fun getTodoById(todoId: Long): TodoResponse
 
@@ -24,4 +27,6 @@ interface TodoService {
     fun updateComment(todoId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse
 
     fun removeComment(todoId: Long, commentId: Long, request: RemoveCommentRequest)
+
+    fun searchCommentList(commentUserName: String): List<CommentResponse>
 }

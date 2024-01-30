@@ -46,8 +46,7 @@ class AppUserServiceImpl(
 
     fun login(request: LoginRequest): LoginResponse {
         val appUser = appUserRepository.findByEmail(request.email) ?: throw ModelNotFoundException("AppUser", null)
-
-        if (appUser.role.name != request.role || !passwordEncoder.matches(request.password, appUser.password)) {
+        if (!passwordEncoder.matches(request.password, appUser.password)) {
             throw InvalidCredentialException()
         }
 

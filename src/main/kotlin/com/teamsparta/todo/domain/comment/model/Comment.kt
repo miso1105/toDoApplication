@@ -8,12 +8,6 @@ import jakarta.persistence.*
 @Table(name = "comment")
 class Comment(
 
-    @Column(name = "comment_user_name")
-    val commentUserName: String,
-
-    @Column(name = "password")
-    val password: String,
-
     @Column(name = "content")
     var content: String,
 

@@ -1,8 +1,9 @@
 package com.teamsparta.todo.domain.comment.dto
 
+import jakarta.validation.constraints.NotBlank
+
 
 data class AddCommentRequest(
-    val commentUserName: String,
-    val password: String,
+    @field:NotBlank(message = "댓글 내용을 입력해주세요")
     val content: String,
 )

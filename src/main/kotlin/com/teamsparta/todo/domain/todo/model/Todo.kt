@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Table(name = "todo")
 class Todo(
 
-    @Column(name = "user_name")   // Supabase 컬럼 명과 같아야 함
-    var userName: String,
-
     @Column(name = "title")
     var title: String,
 

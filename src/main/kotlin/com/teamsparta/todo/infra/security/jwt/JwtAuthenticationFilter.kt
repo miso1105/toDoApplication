@@ -25,7 +25,7 @@ class JwtAuthenticationFilter(
         filterChain: FilterChain
     ) {
         val jwt = request.getBearerToken()
-        println(jwt)
+//        println(jwt)
 
 
         if (jwt != null) {

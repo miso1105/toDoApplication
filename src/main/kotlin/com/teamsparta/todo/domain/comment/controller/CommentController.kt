@@ -16,8 +16,8 @@ class CommentController(
     private val todoService: TodoService
 ) {
 
-    // 쿼리디에셀 사용 api
-    @GetMapping("/search")
+/*    // 쿼리디에셀 사용 api
+    @GetMapping
     @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     fun searchCommentList(
         @RequestParam(value = "commentUserName") commentUserName: String
@@ -25,8 +25,9 @@ class CommentController(
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.searchCommentList(commentUserName))
-    }
+    }*/
 
+    // id 정렬 다시 만들기
 
     @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @PostMapping

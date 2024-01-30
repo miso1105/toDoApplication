@@ -10,6 +10,9 @@ class AppUser (
     @Column(name = "email")
     val email: String,
 
+    @Column(name = "nickname")
+    val nickName: String,
+
     @Column(name = "password")
     val password: String,
 
@@ -27,6 +30,7 @@ fun AppUser.toResponse(): SignUpResponse {
     return SignUpResponse(
         id = id!!,
         email = email,
+        nickName = nickName,
         password = password,
         role = role.name
 
