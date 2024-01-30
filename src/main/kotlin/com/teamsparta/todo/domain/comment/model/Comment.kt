@@ -1,5 +1,6 @@
 package com.teamsparta.todo.domain.comment.model
 
+import com.teamsparta.todo.domain.comment.dto.CommentRequest
 import com.teamsparta.todo.domain.comment.dto.CommentResponse
 import com.teamsparta.todo.domain.todo.model.Todo
 import jakarta.persistence.*
@@ -18,12 +19,18 @@ class Comment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+
+
+    fun update(request: CommentRequest) {
+        content = request.content
+    }
+
 }
 
 fun Comment.toResponse(): CommentResponse {
     return CommentResponse(
         id = id!!,
-        commentUserName = commentUserName,
-        content = content
+        content = content,
     )
 }

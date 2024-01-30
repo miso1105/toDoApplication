@@ -4,7 +4,7 @@ import com.teamsparta.todo.domain.user.dto.SignUpResponse
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "appuser")
 class AppUser (
 
     @Column(name = "email")
