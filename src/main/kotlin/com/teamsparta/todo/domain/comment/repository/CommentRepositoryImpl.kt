@@ -11,9 +11,10 @@ class CommentRepositoryImpl: QueryDslSupport(), CustomCommentRepository {   // C
 
     private val comment = QComment.comment
 
-    override fun searchCommentListBycommentUserName(commentUserName: String): List<Comment> {
+    override fun searchCommentListBycommentId(commentId: Long): List<Comment> {
         return queryFactory.selectFrom(comment)
-            .where(comment.commentUserName.containsIgnoreCase(commentUserName))      // containsIgnoreCase: 대소문자 구분없이 쓸 수 있다.
+//            .where(comment.commentId.containsIgnoreCase(commentId)      // containsIgnoreCase: 대소문자 구분없이 쓸 수 있다.
+            .orderBy(comment.id.asc())
             .fetch()
     }
 

@@ -4,6 +4,5 @@ import com.teamsparta.todo.domain.comment.model.Comment
 
 
 interface CustomCommentRepository {
-
-    fun searchCommentListBycommentUserName(commentUserName: String): List<Comment>
+    fun searchCommentListBycommentId(commentId: Long): List<Comment>
 }
